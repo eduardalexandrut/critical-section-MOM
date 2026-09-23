@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: distributed-lock-broker
+    ports:
+      # 5672 is the AMQP port for your Java application
+      - "5672:5672"
+      # 15672 is the Management UI port for the web dashboard
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
