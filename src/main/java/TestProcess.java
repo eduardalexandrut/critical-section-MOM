@@ -10,7 +10,7 @@ public class TestProcess {
                 for (int i = 0; i < 3; i++) {
                     System.out.println("[" + processId + "] Requesting critical section entry...");
 
-                    lock.lock(); // Blocks if another terminal window has it
+                    lock.lock();
                     System.out.println(">>> [" + processId + "] ENTERED critical section!");
                     // Simulate doing critical database/file I/O work
                     Thread.sleep(3000);
