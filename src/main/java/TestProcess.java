@@ -1,10 +1,10 @@
 import java.util.Random;
 
 public class TestProcess {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         String processId = "Process-" + new Random().nextInt(1000);
 
-        Thread.ofVirtual().start(() -> {
+        Thread worker = Thread.ofVirtual().start(() -> {
             try (DistributedLock lock = new DistributedLock("database-critical-section", "localhost")) {
 
                 for (int i = 0; i < 3; i++) {
@@ -26,6 +26,7 @@ public class TestProcess {
             }
         });
 
-        try { Thread.sleep(20000); } catch (InterruptedException ignored) {}
+
+        worker.join();
     }
 }
